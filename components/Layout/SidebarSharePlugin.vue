@@ -5,7 +5,7 @@
         <i class="fa fa-cog fa-2x" @click="toggleDropDown"> </i>
       </a>
       <ul class="dropdown-menu" :class="{ show: isOpen }">
-        <li class="header-title">Sidebar Background</li>
+        <li class="header-title">Sidebar colour</li>
         <li class="adjustments-line">
           <a class="switch-trigger background-color">
             <div class="badge-colors text-center">
@@ -22,7 +22,7 @@
           </a>
         </li>
 
-        <li class="header-title">Sidebar Mini</li>
+        <li class="header-title">Background</li>
         <li class="adjustments-line">
           <div class="togglebutton switch-change-color mt-3">
             <span class="label-switch">LIGHT MODE</span>
@@ -30,8 +30,10 @@
             <span class="label-switch label-right">DARK MODE</span>
           </div>
         </li>
+        <li class="adjustments-line">
+        </li>
 
-        <li class="button-container mt-4">
+        <!-- <li class="button-container mt-4">
           <a
             href="https://www.creative-tim.com/learning-lab/nuxt/overview/black-dashboard"
             target="_blank"
@@ -56,7 +58,7 @@
           >
             Upgrade to PRO
           </a>
-        </li>
+        </li> -->
       </ul>
     </div>
   </div>

@@ -9,7 +9,7 @@
             rel="noopener"
             class="nav-link"
           >
-            Creative Tim
+            Daniel Bustos
           </a>
         </li>
         <li class="nav-item">
@@ -22,16 +22,7 @@
             About Us
           </a>
         </li>
-        <li class="nav-item">
-          <a
-            href="http://blog.creative-tim.com"
-            target="_blank"
-            rel="noopener"
-            class="nav-link"
-          >
-            Blog
-          </a>
-        </li>
+        
       </ul>
       <div class="copyright">
         &copy; {{ year }}, made with <i class="tim-icons icon-heart-2"></i> by

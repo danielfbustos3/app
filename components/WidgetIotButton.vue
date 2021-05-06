@@ -11,6 +11,14 @@
       :class="[config.icon, getIconColor()]"
       style="font-size:30px"
     ></i>
+
+    <base-button
+      @click="sendValue()"
+      :type="config.class"
+      class="mb-3 pull right"
+      size="me"
+      >Add</base-button
+    >
   </card>
 </template>
 
@@ -19,29 +27,36 @@ export default {
   props: ["config"],
   data() {
     return {
-      value: false
+      value: false,
+      sending: false
     };
   },
 
-  mounted() {
-    const topic =
-      this.config.userId +
-      "/" +
-      this.config.selectedDevice.dId +
-      "/" +
-      this.config.variable +
-      "/sdata";
-    console.log(topic);
-    this.$nuxt.$on(topic, this.processReceivedData);
-  },
+  mounted() {},
   methods: {
-    processReceivedData(data) {
-      console.log("received");
-      console.log(data);
-      this.value = data.value;
+    sendValue() {
+      this.sending = true;
+      setTimeout(() => {
+        this.sending = false;
+      }, 400);
+
+      const toSend = {
+        topic:
+          this.config.userId +
+          "/" +
+          this.config.selectedDevice.dId +
+          "/" +
+          this.config.variable +
+          "/actdata",
+        msg: {
+          value: this.config.message
+        }
+      };
+      console.log(toSend);
+      this.$nuxt.$emit("mqtt-sender", toSend);
     },
     getIconColor() {
-      if (!this.value) {
+      if (!this.sending) {
         return "text-dark";
       }
       if (this.config.class == "success") {
