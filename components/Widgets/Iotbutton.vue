@@ -8,14 +8,14 @@
 
     <i
       class="fa "
-      :class="[config.icon, getIconColor()]"
-      style="font-size:30px"
+      :class="[config.icon, getIconColorClass()]"
+      style="font-size: 30px"
     ></i>
 
     <base-button
       @click="sendValue()"
       :type="config.class"
-      class="mb-3 pull right"
+      class="mb-3 pull-right"
       size="me"
       >Add</base-button
     >
@@ -27,18 +27,17 @@ export default {
   props: ["config"],
   data() {
     return {
-      value: false,
       sending: false
     };
   },
-
   mounted() {},
   methods: {
     sendValue() {
       this.sending = true;
+
       setTimeout(() => {
         this.sending = false;
-      }, 400);
+      }, 500);
 
       const toSend = {
         topic:
@@ -52,13 +51,16 @@ export default {
           value: this.config.message
         }
       };
+
       console.log(toSend);
       this.$nuxt.$emit("mqtt-sender", toSend);
     },
-    getIconColor() {
+
+    getIconColorClass() {
       if (!this.sending) {
         return "text-dark";
       }
+
       if (this.config.class == "success") {
         return "text-success";
       }

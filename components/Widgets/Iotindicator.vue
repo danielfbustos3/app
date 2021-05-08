@@ -8,8 +8,8 @@
 
     <i
       class="fa "
-      :class="[config.icon, getIconColor()]"
-      style="font-size:30px"
+      :class="[config.icon, getIconColorClass()]"
+      style="font-size: 30px"
     ></i>
   </card>
 </template>
@@ -22,8 +22,8 @@ export default {
       value: false
     };
   },
-
   mounted() {
+    //userId/dId/uniquestr/sdata
     const topic =
       this.config.userId +
       "/" +
@@ -34,16 +34,28 @@ export default {
     console.log(topic);
     this.$nuxt.$on(topic, this.processReceivedData);
   },
+  beforeDestroy() {
+    this.$nuxt.$off(
+      this.config.userId +
+        "/" +
+        this.config.selectedDevice.dId +
+        "/" +
+        this.config.variable +
+        "/sdata"
+    );
+  },
   methods: {
     processReceivedData(data) {
       console.log("received");
       console.log(data);
       this.value = data.value;
     },
-    getIconColor() {
+
+    getIconColorClass() {
       if (!this.value) {
         return "text-dark";
       }
+
       if (this.config.class == "success") {
         return "text-success";
       }

@@ -30,4 +30,34 @@ const mongoUserName = "devuser";
 const mongoPassword = "devpassword";
 const mongoHost = "localhost";
 const mongoPort = "27017";
-const mongoDatabase = ""
+const mongoDatabase = "iot_pj";
+
+var uri = "mongodb://" + mongoUserName + ":" + mongoPassword + "@" + mongoHost + ":" + mongoPort + "/" + mongoDatabase;
+
+const options = {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    authSource: "admin"
+};
+
+try {
+    mongoose.connect(uri, options).then(() => {
+    console.log("\n");
+    console.log("*****************************".green);
+    console.log("Mongo Successfully Connected!".green);
+    console.log("*****************************".green);
+    console.log("\n");
+
+}, (err) => {
+    console.log("\n");
+    console.log("*****************************".red);
+    console.log("   Mongo Connection Failed   ".red);
+    console.log("*****************************".red);
+    console.log("\n");
+});
+} catch (error) {
+    console.log("ERROR CONNECTING TO MONGO DATABASE");
+    console.log(error);
+}
+
