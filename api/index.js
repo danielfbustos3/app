@@ -1,29 +1,32 @@
 //requires
-const express = require('express');
-const morgan = require('morgan');
-const cors = require('cors');
-const mongoose = require('mongoose');
-const colors = require('colors');
+const express = require("express");
+const mongoose = require("mongoose");
+const morgan = require("morgan");
+const cors = require("cors");
+const colors = require("colors");
 
-
-//instances 
+//instances
 const app = express();
 
 //express config
 app.use(morgan("tiny"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(
+  express.urlencoded({
+    extended: true
+  })
+);
 app.use(cors());
 
 //express routes
-app.use('/api', require('./routes/devices.js'));
-app.use('/api', require('./routes/users.js'));
+app.use("/api", require("./routes/devices.js"));
+app.use("/api", require("./routes/users.js"));
 
 module.exports = app;
 
 //listener
 app.listen(3001, () => {
-    console.log("API server listening on port 3001");
+  console.log("API server listening on port 3001");
 });
 
 //Mongo Connection
@@ -33,32 +36,40 @@ const mongoHost = "localhost";
 const mongoPort = "27017";
 const mongoDatabase = "iot_pj";
 
-var uri = "mongodb://" + mongoUserName + ":" + mongoPassword + "@" + mongoHost + ":" + mongoPort + "/" + mongoDatabase;
+var uri =
+  "mongodb://" +
+  mongoUserName +
+  ":" +
+  mongoPassword +
+  "@" +
+  mongoHost +
+  ":" +
+  mongoPort +
+  "/" +
+  mongoDatabase;
 
 const options = {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-    authSource: "admin"
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+  authSource: "admin"
 };
 
-try {
-    mongoose.connect(uri, options).then(() => {
+mongoose.connect(uri, options).then(
+  () => {
     console.log("\n");
-    console.log("*****************************".green);
-    console.log("Mongo Successfully Connected!".green);
-    console.log("*****************************".green);
+    console.log("*******************************".green);
+    console.log("✔ Mongo Successfully Connected!".green);
+    console.log("*******************************".green);
     console.log("\n");
-
-}, (err) => {
+  },
+  err => {
     console.log("\n");
-    console.log("*****************************".red);
-    console.log("   Mongo Connection Failed   ".red);
-    console.log("*****************************".red);
+    console.log("*******************************".red);
+    console.log("    Mongo Connection Failed    ".red);
+    console.log("*******************************".red);
     console.log("\n");
-});
-} catch (error) {
-    console.log("ERROR CONNECTING TO MONGO DATABASE");
-    console.log(error);
-}
-
+    console.log(err);
+  }
+);
