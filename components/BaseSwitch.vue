@@ -16,7 +16,7 @@
 </template>
 <script>
 export default {
-  name: 'base-switch',
+  name: "base-switch",
   props: {
     value: [Array, Boolean],
     onText: String,
@@ -24,8 +24,8 @@ export default {
   },
   computed: {
     switchClass() {
-      let base = 'bootstrap-switch-';
-      let state = this.model ? 'on' : 'off';
+      let base = "bootstrap-switch-";
+      let state = this.model ? "on" : "off";
       let classes = base + state;
       return classes;
     },
@@ -34,13 +34,14 @@ export default {
         return this.value;
       },
       set(value) {
-        this.$emit('input', value);
+        this.$emit("input", value);
       }
     }
   },
   methods: {
     triggerToggle() {
       this.model = !this.model;
+      this.$emit("click");
     }
   }
 };

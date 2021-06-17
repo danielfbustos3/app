@@ -21,6 +21,9 @@ app.use(cors());
 //express routes
 app.use("/api", require("./routes/devices.js"));
 app.use("/api", require("./routes/users.js"));
+app.use("/api", require("./routes/templates.js"));
+app.use("/api", require("./routes/webhooks.js"));
+app.use("/api", require("./routes/emqxapi.js"));
 
 module.exports = app;
 
