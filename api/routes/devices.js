@@ -7,6 +7,8 @@ const { checkAuth } = require("../middlewares/authentication.js");
 
 import Device from "../models/device.js";
 import SaverRule from "../models/emqx_saver_rule.js";
+import Template from "../models/template.js";
+import AlarmRule from "../models/emqx_alarm_rule.js";
 
 //API
 
@@ -28,10 +30,20 @@ router.get("/device", checkAuth, async (req, res) => {
 
     const saverRules = await getSaverRules(userId);
 
+    const templates = await getTemplates(userId);
+
+    const alarmRules = await getAlarmRules(userId);
+
     devices.forEach((device, index) => {
       devices[index].saverRule = saverRules.filter(
         saverRule => saverRule.dId == device.dId
       )[0];
+      devices[index].template = templates.filter(
+        template => template._id == device.templateId
+      )[0];
+      devices[index].alarmRules = alarmRules.filter(
+        alarmRule => alarmRule.dId == device.dId
+      );
     });
 
     const toSend = {
@@ -123,7 +135,7 @@ router.put("/device", checkAuth, async (req, res) => {
   const dId = req.body.dId;
   const userId = req.userData._id;
 
-  if (selectDevice(userId, dId)) {
+  if (await selectDevice(userId, dId)) {
     const toSend = {
       status: "success"
     };
@@ -181,6 +193,26 @@ async function selectDevice(userId, dId) {
 async function getSaverRules(userId) {
   try {
     const rules = await SaverRule.find({ userId: userId });
+    return rules;
+  } catch (error) {
+    return false;
+  }
+}
+
+//get templates
+async function getTemplates(userId) {
+  try {
+    const templates = await Template.find({ userId: userId });
+    return templates;
+  } catch (error) {
+    return false;
+  }
+}
+
+//get alarm rules
+async function getAlarmRules(userId) {
+  try {
+    const rules = await AlarmRule.find({ userId: userId });
     return rules;
   } catch (error) {
     return false;

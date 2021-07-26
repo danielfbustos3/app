@@ -42,28 +42,17 @@
         class="nav-item"
       >
         <template slot="title">
-          <div class="notification d-none d-lg-block d-xl-block"></div>
+          <div
+            v-if="this.$store.state.notifications.length > 0"
+            class="notification d-none d-lg-block d-xl-block"
+          ></div>
           <i class="tim-icons icon-sound-wave"></i>
           <p class="d-lg-none">New Notifications</p>
         </template>
-        <li class="nav-link">
+        <li v-for="notification in $store.state.notifications" class="nav-link">
           <a href="#" class="nav-item dropdown-item"
-            >Mike John responded to your email</a
+            >{{notification.time}}</a
           >
-        </li>
-        <li class="nav-link">
-          <a href="#" class="nav-item dropdown-item">You have 5 more tasks</a>
-        </li>
-        <li class="nav-link">
-          <a href="#" class="nav-item dropdown-item"
-            >Your friend Michael is in town</a
-          >
-        </li>
-        <li class="nav-link">
-          <a href="#" class="nav-item dropdown-item">Another notification</a>
-        </li>
-        <li class="nav-link">
-          <a href="#" class="nav-item dropdown-item">Another one</a>
         </li>
       </base-dropdown>
       <base-dropdown
@@ -130,6 +119,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch("getDevices");
+    this.$store.dispatch("getNotifications");
     this.$nuxt.$on("selectedDeviceIndex", this.updateSelectedDeviceIndex);
   },
   methods: {
