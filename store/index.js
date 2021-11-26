@@ -55,7 +55,7 @@ export const actions = {
   },
 
   getNotifications() {
-    const axiosheader = {
+    const axiosHeader = {
       headers: {
         token: this.state.auth.token
       }
